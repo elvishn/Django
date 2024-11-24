@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
 
 from .forms import AddPostForm, UploadFileForm
-from .models import Women, Category, TagPost
+from .models import Women, Category, TagPost, UploadFiles
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -36,24 +36,25 @@ def index(request):
     return render(request, 'women/index.html', context=data)
 
 
-def handle_uploaded_file(f):
-    name = f.name
-    ext = ''
+#def handle_uploaded_file(f):
+#    name = f.name
+#    ext = ''
 
-    if '.' in name:
-        ext = name[name.rindex('.'):]
-        name = name[:name.rindex('.')]
+#    if '.' in name:
+#        ext = name[name.rindex('.'):]
+#        name = name[:name.rindex('.')]
 
-    suffix = str(uuid.uuid4())
-    with open(f"uploads/{name}_{suffix}{ext}", "wb+") as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
+ #   suffix = str(uuid.uuid4())
+  #  with open(f"uploads/{name}_{suffix}{ext}", "wb+") as destination:
+   #     for chunk in f.chunks():
+    #        destination.write(chunk)
 
-def about(request):
+def about(request, form_cleaned_data=None):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(form.cleaned_data['file'])
+            fp = UploadFiles(file=form_cleaned_data['file'])
+            fp.save()
     else:
         form = UploadFileForm()
 
@@ -74,7 +75,7 @@ def show_post(request, post_slug):
 
 def addpage(request):
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
+        form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('home')
