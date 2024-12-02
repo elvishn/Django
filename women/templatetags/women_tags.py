@@ -5,6 +5,9 @@ import women.views as views
 from women.models import Category, TagPost
 
 register = template.Library()
+@register.simple_tag
+def grt_menu():
+    return menu
 
 
 @register.inclusion_tag('women/list_categories.html')
