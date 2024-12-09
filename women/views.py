@@ -19,7 +19,7 @@ class WomenHome(DataMixin, ListView):
     model = Women
     template_name = 'women/index.html'
     context_object_name = 'posts'
-    allow_empty = False
+    allow_empty = True
     cat_selected = 0
 
     def get_context_data(self, *, object_list=None, **kwargs):
