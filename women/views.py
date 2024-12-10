@@ -45,7 +45,7 @@ class WomenCategory(DataMixin, ListView):
 @login_required
 def about(request, form_cleaned_data=None):
     contact_list = Women.published.all()
-    paginator = Paginator(contact_list, 3)
+    paginator = Paginator(contact_list, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

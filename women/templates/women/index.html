@@ -21,28 +21,29 @@
 </ul>
 
 {% if page_obj.has_other_pages %}
-<nav class="list-pages">
-    <ul>
-		{% if page_obj.has_previous %}
-<li class="page-num">
-         <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
-</li>
-{% endif %}
-        {% for p in paginator.page_range %}
-                   {% if page_obj.number == p %}
-        <li class="page-num page-num-selected">{{ p }}</li>
-         {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1  %}
-        <li class="page-num">
-            <a href="?page={{ p }}">{{ p }}</a>
+<nav class="list-pages" style="text-align: center;">
+    <ul style="display: inline-flex; list-style: none; padding: 0; margin: 0;">
+        {% if page_obj.has_previous %}
+        <li class="page-num" style="margin-right: 20px; font-size: 20px;"> <!-- Увеличиваем размер шрифта и добавляем отступ -->
+            <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
         </li>
-                   {% endif %}
+        {% endif %}
+        {% for p in paginator.page_range %}
+            {% if page_obj.number == p %}
+            <li class="page-num page-num-selected" style="margin-right: 20px; font-size: 20px;">{{ p }}</li> <!-- Увеличиваем размер шрифта и добавляем отступ -->
+            {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+            <li class="page-num" style="margin-right: 20px; font-size: 20px;">
+                <a href="?page={{ p }}">{{ p }}</a> <!-- Увеличиваем размер шрифта -->
+            </li>
+            {% endif %}
         {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-num" style="margin-right: 20px; font-size: 20px;">
+            <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+        </li>
+        {% endif %}
     </ul>
-	{% if page_obj.has_next %}
-<li class="page-num">
-         <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
-</li>
-{% endif %}
 </nav>
 {% endif %}
+
 {% endblock %}
