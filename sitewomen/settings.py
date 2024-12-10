@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'women.apps.WomenConfig',
     'debug_toolbar',
     'users.apps.UsersConfig',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -141,6 +142,7 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'users:login'
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
 ]
