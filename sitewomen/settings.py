@@ -157,3 +157,17 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 AUTH_USER_MODEL = "users.User"
 DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'
+SOCIAL_AUTH_GITHUB_KEY = 'Ov23libPvAYdSV7pN51W'
+SOCIAL_AUTH_GITHUB_SECRET = 'eb38b6947e772cce57826e785b4eec99e46653d1'
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'users.pipeline.new_users_handler',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
