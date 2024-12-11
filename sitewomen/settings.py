@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'users.apps.UsersConfig',
     'social_django',
+    'captcha',
 ]
 
 MIDDLEWARE = [
